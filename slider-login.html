@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip Login Slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 800px;
+            height: 420px;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .background-card {
+            width: 48%;
+            height: 100%;
+            background: rgb(146, 142, 142);
+            border-radius: 14px;
+            padding: 40px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            text-align: center;
+            box-shadow: 0px 0px 60px rgba(0,0,0,0.1);
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .flip-container {
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            perspective: 1000px;
+        }
+
+        .flip-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(.16,.84,.44,1);
+        }
+
+        .flip-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .form-card {
+            width: 100%;
+            height: 100%;
+            padding: 50px 40px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            position: absolute;
+            top: 0;
+            backface-visibility: hidden;
+            border-radius: 14px;
+            border: 2px solid rgba(255,255,255,0.3);
+            box-shadow: 0px 0px 40px rgba(0,0,0,0.25), 0 0 20px rgba(255,255,255,0.2);
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0px 0px 40px rgba(0,0,0,0.25), 0 0 20px rgba(255,255,255,0.2); }
+            50% { box-shadow: 0px 0px 40px rgba(0,0,0,0.25), 0 0 30px rgba(255,255,255,0.5); }
+        }
+
+        .login-card {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+
+        .register-card {
+            background: linear-gradient(135deg, #ee5a24, #ff6b6b);
+            transform: rotateY(180deg);
+        }
+
+        .form-card h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .form-card input {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .form-card input:focus {
+            border-color: rgba(255,255,255,0.8);
+            box-shadow: 0 0 15px rgba(255,255,255,0.4);
+            transform: translateY(-2px);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .form-card input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .form-card button {
+            background: rgba(255,255,255,0.9);
+            color: #ee5a24;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-card button:hover {
+            background: white;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.3);
+        }
+
+        .form-card button:active {
+            transform: scale(0.98);
+        }
+
+        .form-card p {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .form-card a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .form-card a:hover {
+            color: white;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+        h1{
+            color:#ee5a24;
+        }
+        p{
+            color:#333;
+        }
+
+        .particle:nth-child(1) { animation-delay: 0s; left: 10%; top: 20%; }
+        .particle:nth-child(2) { animation-delay: 1s; left: 20%; top: 80%; }
+        .particle:nth-child(3) { animation-delay: 2s; left: 30%; top: 40%; }
+        .particle:nth-child(4) { animation-delay: 3s; left: 40%; top: 60%; }
+        .particle:nth-child(5) { animation-delay: 4s; left: 50%; top: 10%; }
+        .particle:nth-child(6) { animation-delay: 5s; left: 60%; top: 90%; }
+        .particle:nth-child(7) { animation-delay: 6s; left: 70%; top: 30%; }
+        .particle:nth-child(8) { animation-delay: 7s; left: 80%; top: 70%; }
+        .particle:nth-child(9) { animation-delay: 8s; left: 90%; top: 50%; }
+        .particle:nth-child(10) { animation-delay: 9s; left: 95%; top: 25%; }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="background-card">
+            <h1>Welcome!</h1>
+            <p>Please login or register to continue.</p>
+        </div>
+        <div class="flip-container">
+            <div class="flip-card" id="flipCard">
+                <div class="form-card login-card" id="loginCard">
+                    <h2>Login</h2>
+                    <form id="loginForm">
+                        <input type="text" placeholder="Username" required>
+                        <input type="password" placeholder="Password" required>
+                        <button type="submit">Login</button>
+                    </form>
+                    <p>Don't have an account? <a href="#" id="toRegister">Register</a></p>
+                </div>
+                <div class="form-card register-card" id="registerCard">
+                    <h2>Register</h2>
+                    <form id="registerForm">
+                        <input type="text" placeholder="Username" required>
+                        <input type="email" placeholder="Email" required>
+                        <input type="password" placeholder="Password" required>
+                        <button type="submit">Register</button>
+                    </form>
+                    <p>Already have an account? <a href="#" id="toLogin">Login</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+    </div>
+
+    <script>
+        const flipCard = document.getElementById('flipCard');
+        const toLogin = document.getElementById('toLogin');
+        const toRegister = document.getElementById('toRegister');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const container = document.querySelector('.container');
+
+        // Create audio context for sound effects
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playFlipSound() {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+
+        function playSuccessSound() {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.frequency.setValueAtTime(523, audioContext.currentTime); // C5
+            oscillator.frequency.setValueAtTime(659, audioContext.currentTime + 0.1); // E5
+            oscillator.frequency.setValueAtTime(784, audioContext.currentTime + 0.2); // G5
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                container.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        toLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            flipCard.classList.remove('flipped');
+            playFlipSound();
+        });
+
+        toRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            flipCard.classList.add('flipped');
+            playFlipSound();
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            playSuccessSound();
+            createConfetti();
+            setTimeout(() => alert('Login successful!'), 500);
+        });
+
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            playSuccessSound();
+            createConfetti();
+            setTimeout(() => alert('Registration successful!'), 500);
+        });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && flipCard.classList.contains('flipped')) {
+                flipCard.classList.remove('flipped');
+                playFlipSound();
+            } else if (e.key === 'ArrowRight' && !flipCard.classList.contains('flipped')) {
+                flipCard.classList.add('flipped');
+                playFlipSound();
+            }
+        });
+    </script>
+</body>
+</html>
